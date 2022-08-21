@@ -1,1 +1,36 @@
 # WriterUtils
+
+There are two kinds of Writers: StringWriter which writes to a Stringand FileWriter that writes to a file(these are not related tothose classes provided in Java). There can be other types ofWriters (like SocketWriter that writes to a Socket) in the future.
+
+A Writer simply writes to a target (like string or file) until closeis called. Any effort to write after the call toclose is simplyignored.
+
+You can find out what was written to a StringWriter by calling afunction. You can find out what waswritten to a file using aFileWriter by reading the file written to.
+
+There are several types of operations that can be performed on thesetwo (or other types added in the future) writers. For example:
+
+lower case: This converts the string being written to all lower case
+
+upper case: This converts the string being written to all upper case
+
+stupid remover: This replaces the word stupid (only in lower case) to s*****
+
+duplicate remover: This removes consecutive duplicated words. For example,
+"This is is it" will replaced by "This is it" when this function is applied.
+
+Design so that other such functions may be added in the future, butwithout changing any existing class.
+The user of your design will pick and choose what kinds of operationsthey want to use or combine to use. 
+
+Usermay be interestedin combining the stupid remover and the lower case operation whenwriting to a String. I may also be interested in combining theduplicate remover and the upper case operation when writing toa file. I may chose to use any combination of these operationsat will.
+
+For example:
+You can imagine an operation like this (pseudocode):
+
+writeToWriter(Writer writer) {
+writer.write("This is really really stupid!!!")
+writer.close();
+}
+If I had combined the operations of duplicate remover, stupid remover,
+and if the writer is targeting a file (say myfile.dat), then the file
+myfile.dat would contain the content
+
+This is really s*****!!!
